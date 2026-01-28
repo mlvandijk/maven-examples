@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.acme.examples</groupId>
+  <artifactId>vulnerabilities</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+ 
+  <name>vulnerabilities</name>
+  <description>Vulnerabilities</description>
+
+  <properties>
+    <app.main.class>com.acme.examples.VulnerableApiUsage</app.main.class>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jackson.version>2.9.7</jackson.version>
+    <maven.compiler.release>21</maven.compiler.release>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>${app.main.class}</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

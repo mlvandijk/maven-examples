@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.acme.examples</groupId>
+  <artifactId>enforcer</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+ 
+  <name>enforcer</name>
+  <description>enforcer</description>
+
+  <properties>
+    <app.main.class>com.acme.examples.HelloWorld</app.main.class>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>21</java.version>
+    <maven.version>3.9.9</maven.version>
+    <maven.compiler.release>${java.version}</maven.compiler.release>
+  </properties>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.14.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.5.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.4.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>3.1.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.21.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.3.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>3.1.4</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>${app.main.class}</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <id>check</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <!-- .mvn and wrapper files must exist -->
+                <requireFilesExist>
+                  <files>
+                   <file>${project.basedir}/.mvn</file>
+                   <file>${project.basedir}/.mvn/wrapper/maven-wrapper.properties</file>
+                   <file>${project.basedir}/mvnw</file>
+                   <file>${project.basedir}/mvnw.cmd</file>
+                  </files>
+                </requireFilesExist>
+                
+                <!-- java.version must match -->
+                <requireJavaVersion>
+                  <version>${java.version}</version>
+                </requireJavaVersion>
+                
+                <!-- Maven version must match -->
+                <requireMavenVersion>
+                  <version>${maven.version}</version>
+                </requireMavenVersion>
+                
+                <!-- plugins must have explicit versions -->
+                <requirePluginVersions/>
+                
+                <!-- dependencies must have same versions -->
+                <dependencyConvergence/>
+                
+                <!-- apply semver rules -->
+                <requireUpperBoundDeps/>
+                
+                <!-- maximum bytecode level for all dependencies-->
+                <enforceBytecodeVersion>
+                  <maxJdkVersion>${java.version}</maxJdkVersion>
+                </enforceBytecodeVersion>
+                
+                <!-- disallow same classes in different dependencies -->
+                <banDuplicateClasses/>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+           <dependency>
+             <groupId>org.codehaus.mojo</groupId>
+             <artifactId>extra-enforcer-rules</artifactId>
+             <version>1.11.0</version>
+           </dependency>
+         </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+</project>
