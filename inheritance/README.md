@@ -8,17 +8,17 @@ Build
 ./mvnw verify
 ```
 
-Resolved project model for all projects
-
-```sh
-./mvnw help:effective-pom -Dverbose
-```
-
 What we want to do is execute the main class in project 3
 
 ```sh
 ./mvnw compile exec:java
 ````
+
+Resolved project model for all projects
+
+```sh
+./mvnw help:effective-pom -Dverbose
+```
 
 Resolve effective POM for a single project
 
