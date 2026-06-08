@@ -8,5 +8,5 @@ mvn verify
 
 Add a wrapper
 ```sh
-mvn wrapper:wrapper -Dmaven=3.9.14
+mvn wrapper:wrapper -Dmaven=3.9.16
 ```
